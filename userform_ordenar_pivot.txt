@@ -1,0 +1,92 @@
+' Código para el UserForm
+Private Sub UserForm_Initialize()
+    ' Color de fondo azul navy
+    Me.BackColor = RGB(0, 0, 128)  ' Azul Navy
+    
+    ' Cambiar el color de todos los botones a naranja con texto blanco
+    ' y las etiquetas con fondo azul y texto blanco
+    Dim ctrl As Control
+    For Each ctrl In Me.Controls
+        If TypeName(ctrl) = "CommandButton" Then
+            ctrl.BackColor = RGB(255, 140, 0)  ' Naranja
+            ctrl.ForeColor = RGB(255, 255, 255)  ' Blanco
+        ElseIf TypeName(ctrl) = "Label" Then
+            ctrl.BackColor = RGB(0, 0, 128)  ' Mismo azul navy que el fondo
+            ctrl.ForeColor = RGB(255, 255, 255)  ' Texto blanco
+        End If
+    Next ctrl
+    
+    ' Posicionar el UserForm en las coordenadas del rango H12:J20
+    Dim rangoObjetivo As Range
+    Set rangoObjetivo = ThisWorkbook.Sheets("Reporte-Folleto").Range("H12:J20")
+    
+    ' Convertir coordenadas de celda a coordenadas de pantalla
+    Dim leftPos As Double, topPos As Double
+    leftPos = ThisWorkbook.Sheets("Reporte-Folleto").Application.ActiveWindow.PointsToScreenPixelsX(rangoObjetivo.Left)
+    topPos = ThisWorkbook.Sheets("Reporte-Folleto").Application.ActiveWindow.PointsToScreenPixelsY(rangoObjetivo.Top)
+    
+    ' Establecer posición
+    Me.StartUpPosition = 0  ' Manual
+    Me.Left = leftPos
+    Me.Top = topPos
+End Sub
+
+Private Sub OrdenarPivot(campo As String, orden As XlSortOrder)
+    ' Ordenar Pivot-Folleto
+    On Error Resume Next
+    ThisWorkbook.Sheets("Reporte-Folleto").PivotTables("Pivot-Folleto").PivotFields("Descripcion").AutoSort _
+        Order:=orden, Field:=campo
+    
+    If Err.Number <> 0 Then
+        MsgBox "Error al ordenar Pivot-Folleto: " & Err.Description, vbExclamation
+        Err.Clear
+    End If
+    
+    ' Ordenar Pivot-3
+    ThisWorkbook.Sheets("Reporte-Folleto").PivotTables("Pivot-3").PivotFields("Descripcion").AutoSort _
+        Order:=orden, Field:=campo
+    
+    If Err.Number <> 0 Then
+        MsgBox "Error al ordenar Pivot-3: " & Err.Description, vbExclamation
+    End If
+    
+    On Error GoTo 0
+End Sub
+
+Private Sub btnOrdenVentaAsc_Click()
+    OrdenarPivot "Venta_Folleto", xlAscending
+End Sub
+
+Private Sub btnOrdenVentaDesc_Click()
+    OrdenarPivot "Venta_Folleto", xlDescending
+End Sub
+
+Private Sub btnOrdenPartAsc_Click()
+    ' Exactamente como aparece en la macro grabada
+    OrdenarPivot "Participación SKU", xlAscending
+End Sub
+
+Private Sub btnOrdenPartDesc_Click()
+    ' Exactamente como aparece en la macro grabada
+    OrdenarPivot "Participación SKU", xlDescending
+End Sub
+
+Private Sub btnOrdenMargenAsc_Click()
+    ' Exactamente como aparece en la macro grabada
+    OrdenarPivot "-Margen SKU", xlAscending
+End Sub
+
+Private Sub btnOrdenMargenDesc_Click()
+    ' Exactamente como aparece en la macro grabada
+    OrdenarPivot "-Margen SKU", xlDescending
+End Sub
+
+Private Sub btnOrdenUtilAsc_Click()
+    ' Exactamente como aparece en la macro grabada
+    OrdenarPivot "-Utilidad", xlAscending
+End Sub
+
+Private Sub btnOrdenUtilDesc_Click()
+    OrdenarPivot "-Utilidad", xlDescending
+End Sub
+
