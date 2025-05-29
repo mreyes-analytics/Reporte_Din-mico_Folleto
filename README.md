@@ -94,6 +94,32 @@ write_xlsx(Ventas_Todas, "Reporte_Ventas_Todas5.xlsx")
 El resultado es un archivo Excel con datos listos para análisis con tabla dinámica, permitiendo a los gerentes ordenar, filtrar y consultar el performance de artículos en folleto de manera rápida y sencilla.
 ![Reporte Excel Output](./pivot_macro.png)
 
+📝 Macro UserForm de ordenamiento
+Aunque Excel permite ordenar tablas dinámicas desde el menú contextual, este UserForm fue creado para facilitar la experiencia del usuario y agilizar el análisis, permitiendo ordenar la información clave con un solo clic. Esta mejora es especialmente útil en contextos donde el reporte es utilizado por perfiles no técnicos o donde se requiere rapidez y precisión operativa.
+
+El archivo userform_ordenar_pivot.txt contiene el código completo del UserForm para ordenar automáticamente las tablas dinámicas del reporte según diferentes criterios: venta, participación, margen y utilidad.
+
+Instrucciones rápidas:
+Abre el Editor de VBA en Excel (ALT + F11)
+
+Inserta un nuevo UserForm y personaliza el fondo (azul navy)
+
+Agrega los botones y nómbralos:
+
+btnOrdenVentaAsc / btnOrdenVentaDesc
+
+btnOrdenPartAsc / btnOrdenPartDesc
+
+btnOrdenMargenAsc / btnOrdenMargenDesc
+
+btnOrdenUtilAsc / btnOrdenUtilDesc
+
+Pega el código del archivo .txt en el módulo del UserForm
+
+Ajusta los nombres de las tablas dinámicas y campos según tu reporte
+
+El UserForm está diseñado para posicionarse automáticamente en la hoja y aplicar el ordenamiento con solo hacer clic en los botones. Puede adaptarse fácilmente a cualquier tabla dinámica cambiando los nombres de los campos y la hoja objetivo.
+
 🧠 Reflexión profesional
 Este proyecto ejemplifica cómo, aún ante limitaciones de acceso y automatización, es posible resolver problemas reales del negocio integrando herramientas como R y Excel. Convertí una tarea que dependía del área de TI en un proceso semi-automático, ágil y amigable para el usuario final.
 La solución fue muy bien recibida por el área comercial y demuestra la importancia de tener habilidades mixtas de análisis, integración de datos y foco en el usuario de negocio, especialmente en ambientes donde los recursos técnicos pueden ser limitados o lentos.
